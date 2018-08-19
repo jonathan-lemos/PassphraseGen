@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PassphraseGen</string>
+    <string name="ButtonGenerateText">Generate</string>
+    <string name="ButtonCopyToClipboardText">Copy to Clipboard</string>
+</resources>

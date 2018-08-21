@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- This CoordinatorLayout is needed to use a toolbar with the MainActivity -->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,10 +10,12 @@
     android:fitsSystemWindows="true"
     tools:context="com.jonathanrlemos.passphrasegen.MainActivity">
 
+    <!-- This AppBarLayout houses the Toolbar -->
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- This Toolbar houses our settings menu -->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"

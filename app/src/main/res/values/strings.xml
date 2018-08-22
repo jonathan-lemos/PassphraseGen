@@ -3,4 +3,5 @@
     <string name="ButtonGenerateText">Generate</string>
     <string name="ButtonCopyToClipboardText">Copy to Clipboard</string>
     <string name="ActionSettingsText">Settings</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>

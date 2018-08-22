@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
 import android.view.View;
 
+@SuppressWarnings("unused")
 public class SnackbarPushBehavior extends CoordinatorLayout.Behavior<View> {
     /* prevents onCreate from crashing program */
     public SnackbarPushBehavior(Context c, AttributeSet attrs){

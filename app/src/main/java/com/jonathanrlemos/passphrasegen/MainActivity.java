@@ -3,25 +3,35 @@ package com.jonathanrlemos.passphrasegen;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private AssetList list_adj = null;
     private AssetList list_noun = null;
     private String current_entry = "";
+    private Snackbar currentSnackbar;
 
-    private void showSnackbar(String message, int length){
-        SnackbarPushFactory.make(findViewById(R.id.CoordinatorLayoutMain), message, length, findViewById(R.id.ConstraintLayoutMain)).show();
+    private void showSnackbar(String message, int length) {
+        currentSnackbar = SnackbarPushFactory.make(findViewById(R.id.CoordinatorLayoutMain), message, length, findViewById(R.id.ConstraintLayoutMain));
+        currentSnackbar.show();
+    }
+
+    private void dismissCurrentSnackbar(){
+        if (currentSnackbar != null && currentSnackbar.isShown()){
+            currentSnackbar.dismiss();
+        }
     }
 
     public void setList(AssetList list){
@@ -121,4 +131,26 @@ public class MainActivity extends AppCompatActivity {
         }
         showSnackbar(sb_text, Snackbar.LENGTH_SHORT);
     }
+
+    private void startSettingsActivity(){
+        dismissCurrentSnackbar();
+        startActivity(new Intent(this, SettingsActivity.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu m){
+        getMenuInflater().inflate(R.menu.menu_main, m);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem mi){
+        switch (mi.getItemId()){
+            case R.id.actionSettings:
+                startSettingsActivity();
+                return true;
+        }
+        return false;
+    }
+
 }

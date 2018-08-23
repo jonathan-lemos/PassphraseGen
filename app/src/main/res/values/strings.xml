@@ -4,4 +4,5 @@
     <string name="ButtonCopyToClipboardText">Copy to Clipboard</string>
     <string name="ActionSettingsText">Settings</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="TextViewProgressText">Populating word lists...</string>
 </resources>

@@ -13,6 +13,7 @@ public class AssetList implements Serializable {
     private String assetName;
     // Must be serializable, so it can't be a List<String>
     private ArrayList<String> list;
+    private int listRandomCounter = 0;
 
     public AssetList(Context c, String assetName) throws IOException {
         this.assetName = assetName;
@@ -27,13 +28,5 @@ public class AssetList implements Serializable {
 
     public String getAssetName(){
         return assetName;
-    }
-
-    private static int randInt(int min, int max){
-        return (int)(Math.random() * (max - min + 1)) + min;
-    }
-
-    public String getRandom(){
-        return list.get(randInt(0, list.size() - 1));
     }
 }

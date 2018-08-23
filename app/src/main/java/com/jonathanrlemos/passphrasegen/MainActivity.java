@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,12 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
-    private AssetList list_adj = null;
-    private AssetList list_noun = null;
-    private String current_entry = "";
+    private AssetListOrganizer assetLists;
+    private String currentEntry = "";
     private Snackbar currentSnackbar;
 
     private void showSnackbar(String message, int length) {
@@ -34,49 +30,32 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setList(AssetList list){
-        switch (list.getAssetName()){
-            case "adj.txt":
-                list_adj = list;
-                break;
-            case "noun.txt":
-                list_noun = list;
-                break;
-            default:
-                throw new IllegalArgumentException("list.getAssetName() does not correspond to any known value");
-        }
-    }
-
     public void readAssets(){
-        AssetListReaderCallback callback = new AssetListReaderCallback() {
+        WordListReader.Callback callback = new WordListReader.Callback() {
             @Override
-            public void callbackSuccess(List<AssetList> list) {
-                for (AssetList al : list){
-                    setList(al);
-                }
+            public void callbackSuccess(WordListOrganizer list) {
+                assetLists = list;
                 showSnackbar("Finished populating word lists", Snackbar.LENGTH_SHORT);
             }
 
             @Override
-            public void callbackFailure(AssetListReaderError error) {
-                showSnackbar("Failed to populate word lists (" + AssetListReader.ErrorToString(error) + ")", Snackbar.LENGTH_INDEFINITE);
+            public void callbackFailure(WordListReader.Error error) {
+                showSnackbar("Failed to populate word lists (" + WordListReader.ErrorToString(error) + ")", Snackbar.LENGTH_INDEFINITE);
             }
         };
 
-        new AssetListReader(this, callback).execute("adj.txt", "noun.txt");
+        new WordListReader(this, callback).execute();
     }
 
     public void restoreState(Bundle savedInstanceState){
-        list_adj = (AssetList)savedInstanceState.getSerializable("LIST_ADJ");
-        list_noun = (AssetList)savedInstanceState.getSerializable("LIST_NOUN");
-        current_entry = (String)savedInstanceState.getSerializable("CURRENT_ENTRY");
+        assetLists = (AssetListOrganizer)savedInstanceState.getSerializable("assetLists");
+        currentEntry = (String)savedInstanceState.getSerializable("currentEntry");
     }
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState){
-        savedInstanceState.putSerializable("LIST_ADJ", list_adj);
-        savedInstanceState.putSerializable("LIST_NOUN", list_noun);
-        savedInstanceState.putSerializable("CURRENT_ENTRY", current_entry);
+        savedInstanceState.putSerializable("assetLists", assetLists);
+        savedInstanceState.putSerializable("currentEntry", currentEntry);
 
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -108,11 +87,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickButtonGenerate(View v){
         TextView tv = findViewById(R.id.TextViewPassphrase);
-        if (list_adj == null || list_noun == null){
+        if (assetLists == null){
             showSnackbar("Word lists are not populated.", Snackbar.LENGTH_LONG);
             return;
         }
-        String text = list_adj.getRandom() + list_noun.getRandom();
+        String text = assetLists.getList("adj.txt").getRandom() + assetLists.getList("noun.txt").getRandom();
         tv.setText(text);
         resizeTextView(tv, 0.9f);
     }

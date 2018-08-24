@@ -1,5 +1,6 @@
 package com.jonathanrlemos.passphrasegen;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ProgressBar;
@@ -17,7 +18,7 @@ public class WordListReader extends AsyncTask<Void, Integer, WordList> {
     private WordListReader.Callback callback;
     private WordListReader.Error error = WordListReader.Error.NONE;
 
-    private static final int PUBLISH_PROGRESS_LINES = 100;
+    private static final int PUBLISH_PROGRESS_LINES = 1000;
 
     public interface Callback {
         void callbackSuccess(WordList list);
@@ -76,7 +77,12 @@ public class WordListReader extends AsyncTask<Void, Integer, WordList> {
 
     public WordListReader(Context context, WordListReader.Callback callback, ProgressBar progressBar){
         this(context, callback);
+        progressBar.setIndeterminate(false);
         progressBarRef = new WeakReference<>(progressBar);
+    }
+
+    public WordListReader(Activity activity, WordListReader.Callback callback, int progressBarResId){
+        this(activity, callback, (ProgressBar)activity.findViewById(progressBarResId));
     }
 
     private int getMaxProgress(String... assetNames) throws IOException, ContextExpiredException{
@@ -114,6 +120,7 @@ public class WordListReader extends AsyncTask<Void, Integer, WordList> {
             while ((line = br.readLine()) != null) {
                 list.add(line);
                 ctr++;
+                curProgress += line.length() + 1;
                 if (ctr >= PUBLISH_PROGRESS_LINES){
                     publishProgress(curProgress, maxProgress);
                     ctr = 0;
@@ -163,6 +170,11 @@ public class WordListReader extends AsyncTask<Void, Integer, WordList> {
 
     @Override
     protected void onPostExecute(WordList list){
+        // the calling context has expired, so the callback probably won't work
+        if (getContext() == null){
+            return;
+        }
+
         if (list == null){
             callback.callbackFailure(error);
         }

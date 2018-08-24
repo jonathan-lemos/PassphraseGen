@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pref_pwgen_category_title">
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="@string/pref_pwgen_capitalize_first_key"
+            android:title="@string/pref_pwgen_capitalize_first_title"
+            android:summary="@string/pref_pwgen_capitalize_first_summary"
+            android:defaultValue="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_pwstr_category_title">
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="@string/pref_pwstr_enable_key"
+            android:title="@string/pref_pwstr_enable_title"
+            android:defaultValue="false"/>
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="@string/pref_pwstr_entropy_key"
+            android:title="@string/pref_pwstr_entropy_title"
+            android:summary="@string/pref_pwstr_entropy_summary"
+            android:defaultValue="false"
+            android:dependency="@string/pref_pwstr_enable_key"/>
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="@string/pref_pwstr_cracktime_key"
+            android:title="@string/pref_pwstr_cracktime_title"
+            android:summary="@string/pref_pwstr_cracktime_summary"
+            android:defaultValue="false"
+            android:dependency="@string/pref_pwstr_enable_key"/>
+
+        <android.support.v7.preference.SeekBarPreferenceCompat
+            android:key="@string/pref_pwstr_crackstrength_key"
+            android:title="@string/pref_pwstr_crackstrength_title"
+            android:dependency="@string/pref_pwstr_cracktime_key"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -12,12 +12,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private AssetListOrganizer assetLists;
+    private WordList wordList;
     private String currentEntry = "";
     private Snackbar currentSnackbar;
+    private boolean currentlyReadingAssets = false;
 
     private void showSnackbar(String message, int length) {
         currentSnackbar = SnackbarPushFactory.make(findViewById(R.id.CoordinatorLayoutMain), message, length, findViewById(R.id.ConstraintLayoutMain));
@@ -30,31 +33,60 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void showButtonBar(){
+        LinearLayout buttonBar = findViewById(R.id.LinearLayoutButtonBar);
+        ProgressBar progressBar = findViewById(R.id.ProgressBar);
+        TextView progressText = findViewById(R.id.TextViewProgress);
+
+        buttonBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
+        progressText.setVisibility(View.INVISIBLE);
+    }
+
+    private void showProgressBar(){
+        LinearLayout buttonBar = findViewById(R.id.LinearLayoutButtonBar);
+        ProgressBar progressBar = findViewById(R.id.ProgressBar);
+        TextView progressText = findViewById(R.id.TextViewProgress);
+
+        buttonBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+        progressText.setVisibility(View.VISIBLE);
+    }
+
     public void readAssets(){
+        if (currentlyReadingAssets){
+            return;
+        }
+
         WordListReader.Callback callback = new WordListReader.Callback() {
             @Override
-            public void callbackSuccess(WordListOrganizer list) {
-                assetLists = list;
-                showSnackbar("Finished populating word lists", Snackbar.LENGTH_SHORT);
+            public void callbackSuccess(WordList list) {
+                wordList = list;
+                showButtonBar();
+                currentlyReadingAssets = false;
             }
 
             @Override
             public void callbackFailure(WordListReader.Error error) {
-                showSnackbar("Failed to populate word lists (" + WordListReader.ErrorToString(error) + ")", Snackbar.LENGTH_INDEFINITE);
+                TextView tv = findViewById(R.id.TextViewProgress);
+                tv.setText(R.string.TextViewProgressTextFailure);
+                currentlyReadingAssets = false;
             }
         };
 
-        new WordListReader(this, callback).execute();
+        showProgressBar();
+        currentlyReadingAssets = true;
+        new WordListReader(this, callback, R.id.ProgressBar).execute();
     }
 
     public void restoreState(Bundle savedInstanceState){
-        assetLists = (AssetListOrganizer)savedInstanceState.getSerializable("assetLists");
+        wordList = (WordList)savedInstanceState.getSerializable("wordList");
         currentEntry = (String)savedInstanceState.getSerializable("currentEntry");
     }
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState){
-        savedInstanceState.putSerializable("assetLists", assetLists);
+        savedInstanceState.putSerializable("wordList", wordList);
         savedInstanceState.putSerializable("currentEntry", currentEntry);
 
         super.onSaveInstanceState(savedInstanceState);
@@ -64,13 +96,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
+        setSupportActionBar((Toolbar)findViewById(R.id.toolbarMain));
 
         if (savedInstanceState != null){
             restoreState(savedInstanceState);
         }
-        else {
+
+        if (wordList == null){
             readAssets();
+        }
+        else{
+            showButtonBar();
         }
     }
 
@@ -87,11 +123,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickButtonGenerate(View v){
         TextView tv = findViewById(R.id.TextViewPassphrase);
-        if (assetLists == null){
+        if (wordList == null){
             showSnackbar("Word lists are not populated.", Snackbar.LENGTH_LONG);
             return;
         }
-        String text = assetLists.getList("adj.txt").getRandom() + assetLists.getList("noun.txt").getRandom();
+        String text = wordList.getRandomAdjective() + wordList.getRandomNoun();
         tv.setText(text);
         resizeTextView(tv, 0.9f);
     }

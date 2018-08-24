@@ -1,7 +1,7 @@
-AD
-CE
-BC
-BCE
+ad
+ce
+bc
+bce
 horseback
 barely
 just
@@ -163,7 +163,7 @@ instantaneously
 mildly
 anon
 soon
-ASAP
+asap
 shortly
 shortly
 momentarily

@@ -1655,10 +1655,10 @@ reform
 moralize
 regenerate
 convert
-Islamize
-Christianize
-Christianize
-Islamize
+islamize
+christianize
+christianize
+islamize
 evangelize
 catholicize
 invert
@@ -1759,13 +1759,13 @@ prime
 communize
 internationalize
 communize
-Americanize
-Europeanize
-Europeanize
+americanize
+europeanize
+europeanize
 bestialize
-Americanize
-Frenchify
-Frenchify
+americanize
+frenchify
+frenchify
 modernize
 civilize
 nationalize
@@ -2236,7 +2236,7 @@ sulphur
 vulcanize
 chrome
 bituminize
-Agenize
+agenize
 run
 rerun
 charge
@@ -4101,7 +4101,7 @@ dub
 synchronize
 gloss
 phrase
-Latinize
+latinize
 gloss
 commentate
 paraphrase
@@ -4237,7 +4237,7 @@ transliterate
 transcribe
 transcribe
 notate
-Romanize
+romanize
 braille
 rewrite
 revise
@@ -5352,7 +5352,7 @@ vacuum
 sanitize
 bream
 steam
-Simonize
+simonize
 polish
 slick
 buff
@@ -5632,7 +5632,7 @@ affix
 infix
 detach
 break
-French
+french
 roach
 roach
 unsolder
@@ -8321,7 +8321,7 @@ contradance
 cakewalk
 conga
 samba
-Charleston
+charleston
 boogie
 disco
 mambo
@@ -8503,7 +8503,7 @@ kick
 train
 skate
 skateboard
-Rollerblade
+rollerblade
 ski
 wedel
 schuss
@@ -9779,7 +9779,7 @@ import
 export
 offload
 post
-FTP
+ftp
 spool
 download
 upload
@@ -10761,7 +10761,7 @@ parcel
 sliver
 paragraph
 canton
-Balkanize
+balkanize
 unite
 consociate
 walk

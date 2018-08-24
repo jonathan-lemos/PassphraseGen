@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:indeterminate="false"
         android:max="100"
-        android:progress="50"
-        app:layout_constraintBottom_toTopOf="@id/TextViewProgress"
+        android:progress="0"
+        app:layout_constraintTop_toTopOf="@id/LinearLayoutButtonBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -41,8 +41,7 @@
         android:text="@string/TextViewProgressText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/ProgressBar" />
 
     <LinearLayout
         android:id="@+id/LinearLayoutButtonBar"
@@ -54,6 +53,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:orientation="horizontal"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -65,13 +65,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onClickButtonGenerate"
-            android:text="@string/ButtonGenerateText"/>
+            android:text="@string/ButtonGenerateText" />
 
         <View
             android:id="@+id/ViewButtonSeparator"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"/>
+            android:background="@color/colorAccent" />
 
         <Button
             android:id="@+id/ButtonCopyToClipboard"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onClickButtonCopyToClipboard"
-            android:text="@string/ButtonCopyToClipboardText"/>
+            android:text="@string/ButtonCopyToClipboardText" />
 
     </LinearLayout>
 

@@ -3,6 +3,7 @@ package com.jonathanrlemos.passphrasegen;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.widget.ProgressBar;
 
 import java.io.BufferedReader;
@@ -56,6 +57,7 @@ public class WordListReader extends AsyncTask<Void, Integer, WordList> {
         }
     }
 
+    @Nullable
     private ProgressBar getProgressBar(){
         if (progressBarRef == null){
             return null;
@@ -63,6 +65,7 @@ public class WordListReader extends AsyncTask<Void, Integer, WordList> {
         return progressBarRef.get();
     }
 
+    @Nullable
     private Context getContext(){
         if (contextRef == null){
             return null;

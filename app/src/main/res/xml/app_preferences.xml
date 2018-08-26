@@ -34,9 +34,10 @@
             android:defaultValue="false"
             android:dependency="@string/pref_pwstr_enable_key"/>
 
-        <android.support.v7.preference.SeekBarPreferenceCompat
+        <SeekBarPreference
             android:key="@string/pref_pwstr_crackstrength_key"
             android:title="@string/pref_pwstr_crackstrength_title"
+            android:defaultValue="0"
             android:dependency="@string/pref_pwstr_cracktime_key"/>
 
     </PreferenceCategory>

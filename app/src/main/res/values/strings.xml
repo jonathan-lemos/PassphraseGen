@@ -36,6 +36,12 @@
         <item> 1   trillion guesses/sec (Dedicated Cracking Cluster)</item>
         <item> 100 trillion guesses/sec (NSA)</item>
     </string-array>
+    <string-array name="pref_pwstr_crackstrength_values">
+        <item>1000000000</item>
+        <item>100000000000</item>
+        <item>1000000000000</item>
+        <item>10000000000000</item>
+    </string-array>
 
     <!-- Strings related to Settings -->
 

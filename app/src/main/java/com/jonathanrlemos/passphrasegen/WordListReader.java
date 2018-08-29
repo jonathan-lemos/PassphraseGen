@@ -21,12 +21,12 @@ public class WordListReader extends AsyncTask<Void, Integer, WordList> {
 
     private static final int PUBLISH_PROGRESS_LINES = 1000;
 
-    public interface Callback {
+    public static interface Callback {
         void callbackSuccess(WordList list);
         void callbackFailure(WordListReader.Error error);
     }
 
-    public enum Error {
+    public static enum Error {
         NONE,
         CONTEXT_EXPIRED,
         IO_ERROR,

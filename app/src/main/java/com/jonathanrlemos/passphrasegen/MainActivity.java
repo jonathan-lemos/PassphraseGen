@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void restoreState(Bundle savedInstanceState){
-        wordList = (WordList)savedInstanceState.getSerializable("wordList");
+        //wordList = (WordList)savedInstanceState.getSerializable("wordList");
         currentEntry = (String)savedInstanceState.getSerializable("currentEntry");
         ((TextView)findViewById(R.id.TextViewPassphrase)).setText(currentEntry);
     }
@@ -96,7 +96,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
 
-        savedInstanceState.putSerializable("wordList", wordList);
+        /* This causes too much lag and may cause a TransactionTooLargeException
+         * savedInstanceState.putSerializable("wordList", wordList);
+         */
         savedInstanceState.putSerializable("currentEntry", currentEntry);
     }
 
